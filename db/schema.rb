@@ -13,14 +13,14 @@
 
 ActiveRecord::Schema.define(version: 20130315230445) do
 
-  create_table "microposts", force: true do |t|
-    t.string   "content"
+  create_table "projects", force: true do |t|
+    t.string   "project_name"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "microposts", ["user_id", "created_at"], name: "index_microposts_on_user_id_and_created_at"
+  add_index "projects", ["user_id", "created_at"], name: "index_projects_on_user_id_and_created_at"
 
   create_table "relationships", force: true do |t|
     t.integer  "follower_id"

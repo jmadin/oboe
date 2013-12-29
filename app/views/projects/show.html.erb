@@ -1,0 +1,16 @@
+<%# provide(:title, @project.project_name) %>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <h1>
+        <%#= gravatar_for @user %>
+        <%= @project.project_name %>
+      </h1>
+      <%= @project.user.name %>
+    </section>
+    <section>
+      <%#= render 'shared/stats' %>
+      <%= link_to "Edit", edit_project_path %>
+    </section>
+  </aside>
+</div>
