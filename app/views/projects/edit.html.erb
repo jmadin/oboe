@@ -1,19 +1,11 @@
 <% provide(:title, "Edit project") %> 
-<h3>Update Project</h3>
 
 <div class="row">
-  <div class="span6 offset3">
-    <%= form_for(@project) do |f| %>
-      <%= render 'shared/error_messages', object: f.object %>
+	<div class="span8 offset2">
+		<h3>Edit Project</h3>
+		
+		<%= render 'form' %>
 
-      <%= f.label :user_id %>
-    	<%= f.select :user_id, User.all.collect {|a| [a.name, a.id]}, {:selected => current_user.id} %>
-
-      <%= f.label :project_name %>
-      <%= f.text_field :project_name %>
-
-      <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
-    <% end %>
-
-  </div>
+		<%#= link_to 'Back', user_path %>
+	</div>
 </div>

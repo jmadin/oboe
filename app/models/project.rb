@@ -1,4 +1,10 @@
 class Project < ActiveRecord::Base
+  has_many :observations, :dependent => :destroy
+  accepts_nested_attributes_for :observations, :reject_if => :all_blank, :allow_destroy => true
+
+  has_many :contexts, :dependent => :destroy
+  accepts_nested_attributes_for :contexts, :reject_if => :all_blank, :allow_destroy => true
+
   belongs_to :user
   default_scope -> { order('created_at DESC') }
   validates :project_name, presence: true, length: { maximum: 140 }

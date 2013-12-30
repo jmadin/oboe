@@ -11,7 +11,57 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130315230445) do
+ActiveRecord::Schema.define(version: 20131230093036) do
+
+  create_table "contexts", force: true do |t|
+    t.integer  "project_id"
+    t.integer  "observation_id"
+    t.integer  "has_context_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "contexts", ["has_context_id"], name: "index_contexts_on_has_context_id"
+  add_index "contexts", ["observation_id"], name: "index_contexts_on_observation_id"
+  add_index "contexts", ["project_id"], name: "index_contexts_on_project_id"
+
+  create_table "ds", force: true do |t|
+    t.integer  "measurement_id"
+    t.string   "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "ds", ["measurement_id"], name: "index_ds_on_measurement_id"
+
+  create_table "entities", force: true do |t|
+    t.string   "entity_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "measurements", force: true do |t|
+    t.integer  "observation_id"
+    t.integer  "trait_id"
+    t.string   "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "standard_id"
+  end
+
+  add_index "measurements", ["observation_id"], name: "index_measurements_on_observation_id"
+  add_index "measurements", ["standard_id"], name: "index_measurements_on_standard_id"
+  add_index "measurements", ["trait_id"], name: "index_measurements_on_trait_id"
+
+  create_table "observations", force: true do |t|
+    t.integer  "project_id"
+    t.integer  "entity_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "observations", ["entity_id"], name: "index_observations_on_entity_id"
+  add_index "observations", ["project_id"], name: "index_observations_on_project_id"
 
   create_table "projects", force: true do |t|
     t.string   "project_name"
@@ -32,6 +82,18 @@ ActiveRecord::Schema.define(version: 20130315230445) do
   add_index "relationships", ["followed_id"], name: "index_relationships_on_followed_id"
   add_index "relationships", ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
   add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id"
+
+  create_table "standards", force: true do |t|
+    t.string   "standard_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "traits", force: true do |t|
+    t.string   "trait_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "name"

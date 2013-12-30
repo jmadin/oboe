@@ -1,16 +1,37 @@
 <%# provide(:title, @project.project_name) %>
 <div class="row">
-  <aside class="span4">
-    <section>
-      <h1>
-        <%#= gravatar_for @user %>
-        <%= @project.project_name %>
-      </h1>
-      <%= @project.user.name %>
-    </section>
-    <section>
-      <%#= render 'shared/stats' %>
-      <%= link_to "Edit", edit_project_path %>
-    </section>
-  </aside>
+	<div class="span8 offset2">
+    <h3><%= @project.project_name %></h3>
+    <p>Author: <%= @project.user.name %></p>
+    <%= link_to "Edit", edit_project_path, class: 'btn' %>
+    <%= link_to "Add Data", "#", class: 'btn' %>
+  
+    <h3>Observations and Measurements</h3>
+    <% @project.observations.each do |obs| %>
+      <div class="alert alert-warning">
+        <p><h4><%= Entity.find(obs.entity_id).entity_name %></h4></p>
+
+        <%#= obs.id %>
+
+        <% @contexts = @project.contexts.where(["observation_id = ?", obs.id]) %>
+        <% @contexts.each do |con| %>
+          <p>Has context: <%= Entity.find(Observation.find(con.has_context_id).entity_id).entity_name %></p>
+        <% end %>
+
+        <% obs.measurements.each do |mea| %>
+          <div class="alert alert-danger">
+            <% if !mea.trait_id.blank? %>
+              Has measured trait: <%= Trait.find(mea.trait_id).trait_name %>
+              <% if !mea.standard_id.blank? %>
+              , using standard: <%= Standard.find(mea.standard_id).standard_name %>
+              <% else %>
+              , using no standard.</p>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 </div>
+<br/>

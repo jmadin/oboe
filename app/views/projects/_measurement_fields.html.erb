@@ -1,0 +1,11 @@
+<div class="nested-fields">
+  <div class="alert alert-danger">
+  
+	<%= f.select :trait_id, Trait.all.collect {|a| [a.trait_name, a.id]}, {:include_blank => 'Choose trait measured...'}, class: "input-large" %>
+	<%= f.select :standard_id, Standard.all.collect {|a| [a.standard_name, a.id]}, {:include_blank => 'Choose standard...'}, class: "input-large" %>
+
+  <%#= f.text_field :value, :placeholder => "Value", class: "input-small" %>
+  
+	<p class="pull-right"><%= link_to_remove_association "remove", f %></p>
+</div>
+</div>

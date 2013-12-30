@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Observation:</strong>
+  <%= @measurement.observation %>
+</p>
+
+<p>
+  <strong>Trait:</strong>
+  <%= @measurement.trait %>
+</p>
+
+<p>
+  <strong>Trait:</strong>
+  <%= @measurement.standard %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @measurement.value %>
+</p>
+
+<%= link_to 'Edit', edit_measurement_path(@measurement) %> |
+<%= link_to 'Back', measurements_path %>

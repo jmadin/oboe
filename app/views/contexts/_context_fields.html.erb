@@ -1,0 +1,12 @@
+<div class="nested-fields">
+    
+  <p>Project: <%= @project.id %>
+  <%= f.hidden_field :project_id, :value => @project.id %>  
+    
+  <%= f.select :observation_id, @project.observations.collect {|a| [Entity.find(a.entity_id).entity_name, a.id]}, {:include_blank => 'Choose entity'}, class: "input-large" %></p>
+
+  <%= f.select :has_context_id, @project.observations.collect {|a| [Entity.find(a.entity_id).entity_name, a.id]}, {:include_blank => 'Choose entity'}, class: "input-large" %></p>
+  
+	<p class="pull-right"><%= link_to_remove_association "remove", f %></p>
+    
+</div>

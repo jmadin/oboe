@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Measurement:</strong>
+  <%= @d.measurement %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @d.value %>
+</p>
+
+<%= link_to 'Edit', edit_d_path(@d) %> |
+<%= link_to 'Back', ds_path %>

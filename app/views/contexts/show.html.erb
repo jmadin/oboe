@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @context.project %>
+</p>
+
+<p>
+  <strong>Observation:</strong>
+  <%= @context.observation %>
+</p>
+
+<p>
+  <strong>Has context:</strong>
+  <%= @context.has_context %>
+</p>
+
+<%= link_to 'Edit', edit_context_path(@context) %> |
+<%= link_to 'Back', contexts_path %>

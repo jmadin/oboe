@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
-  before_action :signed_in_user, only: [:create, :show, :edit, :update, :destroy]
-  before_action :correct_user,   only: [:edit, :update, :destroy]
-  before_action :set_project, only: [:show, :edit]
+  before_action :signed_in_user, only: [:create, :show, :edit, :edit_context, :update, :update_context, :destroy]
+  before_action :correct_user,   only: [:edit, :edit_context, :update, :update_context, :destroy]
+  before_action :set_project, only: [:show, :edit, :edit_context]
 
   # before_action :signed_in_user,
   #               only: [:index, :edit, :update, :destroy, :following, :followers]
@@ -13,26 +13,45 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
   end
 
+  def new
+    @project = Project.new
+    # 3.times { @project.observations.build }
+    # 3.times { @observation.measurements.build }
+  end
+
   def create
     @project = current_user.projects.build(project_params)
     if @project.save
-      flash[:success] = "Project created!"
-      redirect_to root_url
+      flash[:success] = "Project created"
+      redirect_to edit_context_project_path(@project)
     else
-      @feed_items = []
-      render 'static_pages/home'
+      render 'new'
     end
   end
   
   def edit
   end
 
+  def edit_context
+    @context = Context.all
+    # 1.times { @project.contexts.build }
+  end
+
   def update
     if @project.update_attributes(project_params)
       flash[:success] = "Project updated"
-      redirect_to @project
+      redirect_to edit_context_project_path
     else
       render 'edit'
+    end
+  end
+
+  def update_context
+    if @project.update_attributes(project_params)
+      flash[:success] = "Context updated"
+      render 'show'
+    else
+      render 'edit_context'
     end
   end
   
@@ -48,7 +67,7 @@ class ProjectsController < ApplicationController
     end
 
     def project_params
-      params.require(:project).permit(:user_id, :project_name)
+      params.require(:project).permit(:user_id, :project_name, observations_attributes: [:id, :entity_id, :_destroy, measurements_attributes: [:id, :trait_id, :standard_id, :value, :_destroy], contexts_attributes: [:id, :observation_id, :has_context_id, :_destroy]], contexts_attributes: [:id, :observation_id, :has_context_id, :_destroy])
     end
   
     # def correct_user

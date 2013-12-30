@@ -1,0 +1,14 @@
+<%= form_for(@project, :url => {:controller => "projects", :action => "update_context"}, :method => "post") do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <%= f.hidden_field :project_id, :value => @project.id %>  
+
+  <%= f.fields_for :contexts do |con| %>
+  	<%= render "context_fields", :f => con %>
+  <% end %>
+	<div class="links">
+	  <p><%= link_to_add_association "Add Context", f, :contexts %></p>
+  </div>
+
+  <%= f.submit class: 'btn'%>
+<% end %>

@@ -21,3 +21,21 @@ bundle exec rake db:migrate
 
 rails generate scaffold Trait trait_name:string
 bundle exec rake db:migrate
+
+rails generate scaffold Standard standard_name:string
+bundle exec rake db:migrate
+
+rails generate scaffold Observation project:references entity:references
+bundle exec rake db:migrate
+
+rails generate scaffold Measurement observation:references trait:references value:string
+bundle exec rake db:migrate
+
+rails generate migration add_standard_to_measurement standard:references
+bundle exec rake db:migrate
+
+rails generate scaffold Context project:references observation:references has_context:references
+bundle exec rake db:migrate
+
+rails generate scaffold D measurement:references value:string
+bundle exec rake db:migrate
