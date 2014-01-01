@@ -1,5 +1,7 @@
-<div class="nested-fields">
   
+  <div style="display: table-row;" class="nested-fields">
+
+  <div style="display: table-cell;padding-right:5px;" class="pull-right"><%= link_to_remove_association "x", f %></div>
   <%= f.hidden_field :project_id, :value => @project.id %>  
   
   <% if f.object.points.blank? %>      
@@ -11,9 +13,12 @@
   <% end %>
 
   <%= f.fields_for :points do |poi| %>      
-    <%= poi.text_field :value, class: "input-mini" %>
-    <%= poi.hidden_field :measurement_id %>  
+    <div style="display: table-cell;">
+      <%= poi.text_field :value, class: "input-append" %>
+      <%= poi.hidden_field :measurement_id %>
+    </div>
   <% end %>
   
-  <p class="pull-right"><%= link_to_remove_association "remove", f %></p>
-</div>
+
+  </div>
+  

@@ -2,7 +2,9 @@
 
 <div class="row">
 	<div class="span8 offset2">
-		<h3>Edit Row</h3>
+		<%= render 'header' %>
+
+		<h3>Edit Data</h3>
 
     <% temp = 0 %>
     <% @project.observations.each do |obs| %>
@@ -15,6 +17,8 @@
       <div class="alert alert-danger">Can't add data because there are no defined measurements.</div>
     <% end %>
 		
-    <%= link_to 'Back', edit_context_project_path %>
+    
+    <%= link_to 'Undo', edit_row_project_path %> |
+    <%= link_to 'Cancel', project_path %>
 	</div>
 </div>

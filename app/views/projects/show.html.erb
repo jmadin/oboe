@@ -1,33 +1,10 @@
 <%# provide(:title, @project.project_name) %>
 <div class="row">
 	<div class="span8 offset2">
-    <h3>Project: <%= @project.project_name %></h3>
-    <p>Enterer: <%= @project.user.name %></p>
-    <%= link_to "Edit", edit_project_path, class: 'btn' %>
-    <%= link_to "Data", edit_row_project_path, class: 'btn' %>
+		<%= render 'header' %>
   
-  
-  
-  	<%#= render 'row_form' %>
+    <h3>Project Summary</h3>
     
-    <h3>Data</h3>
-    <table class="table">
-    <% @project.rows.each do |row| %>
-      <tr>
-      <% row.points.each do |poi| %>
-        <td><%= poi.value %></td>
-      <% end %>
-    </tr>
-    <% end %>  
-  </table>
-    
-    
-    <h3>Contexts (come back to this later)</h3>
-    <% @project.contexts.each do |con| %>
-      <p><%= con.observation_id %> - <%= con.has_context_id %></p>
-    <% end %>  
-  
-    <h3>Observations and Measurements</h3>
     <% @project.observations.each do |obs| %>
       <div class="alert alert-warning">
         <p><h4><%= Entity.find(obs.entity_id).entity_name %></h4></p>
@@ -53,6 +30,31 @@
         <% end %>
       </div>
     <% end %>
+    
+    
+    <h3>Data</h3>
+    
+    <table class="table">
+      <tr>
+        <% @project.observations.each do |obs| %>
+          <% obs.measurements.each do |mea| %>
+            <th>
+              <%= Trait.find(Measurement.find(mea.id).trait_id).trait_name %> 
+            </th>
+          <% end %>
+        <% end %>
+      </tr>
+
+      <% @project.rows.each do |row| %>
+        <tr>
+          <% row.points.each do |poi| %>
+            <td><%= poi.value %></td>
+          <% end %>
+        </tr>
+      <% end %>  
+    </table>
+      
+    
   </div>
 </div>
 <br/>

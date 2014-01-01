@@ -51,7 +51,7 @@ class ProjectsController < ApplicationController
   def update
     if @project.update_attributes(project_params)
       flash[:success] = "Project updated"
-      redirect_to edit_context_project_path
+      render 'show'
     else
       render 'edit'
     end
@@ -61,7 +61,7 @@ class ProjectsController < ApplicationController
     if @project.update_attributes(project_params)
       flash[:success] = "Context updated"
       # render 'show'
-      redirect_to edit_row_project_path
+      render 'show'
     else
       render 'edit_context'
     end
@@ -69,7 +69,7 @@ class ProjectsController < ApplicationController
 
   def update_row
     if @project.update_attributes(project_params)
-      flash[:success] = "Row updated"
+      flash[:success] = "Data updated"
       render 'show'
     else
       render 'show'

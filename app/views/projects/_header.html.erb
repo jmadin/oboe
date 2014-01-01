@@ -1,0 +1,6 @@
+<h1><%= @project.project_name %></h1>
+<p style="text-align:right;"><%= link_to @project.user.name, @project.user %></p>
+<div class="alert alert-success"><%= link_to "Edit Project", edit_project_path %> |
+<%= link_to "Edit Context", edit_context_project_path %> |
+<%= link_to "Edit Data", edit_row_project_path %></div>
+<hr/>

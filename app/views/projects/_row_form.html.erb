@@ -3,21 +3,34 @@
   <div class="alert alert-success">
     <%= f.hidden_field :project_id, :value => @project.id %>  
 
-    <% @project.observations.each do |obs| %>
-      <% obs.measurements.each do |mea| %>
-        <%= Trait.find(Measurement.find(mea.id).trait_id).trait_name %> 
+    <div style="display: table;">
+      
+    <div style="display: table-row;">
+      <div style="display: table-cell;padding:">
+      </div>
+      
+      <% @project.observations.each do |obs| %>
+        <% obs.measurements.each do |mea| %>
+          <div style="display: table-cell;padding:5px;">
+            <%= Trait.find(Measurement.find(mea.id).trait_id).trait_name %> 
+          </div>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
 
     <%= f.fields_for :rows do |row| %>
     	<%= render "row_fields", :f => row %>
     <% end %>
-
-  	<div class="links">
-  	  <p><%= link_to_add_association "Add Row", f, :rows %></p>
-    </div>
+    
   </div>
-  <%= f.submit class: "btn" %>
+
+	<div class="links">
+	  <p><%= link_to_add_association "Add Row", f, :rows %></p>
+  </div>
+    
+  </div>
+  <%= f.submit 'Save', class: "btn" %>
+  
 <% end %>
 
 

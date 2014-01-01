@@ -2,10 +2,9 @@
   <%= render 'shared/error_messages', object: f.object %>
 
   <%= f.hidden_field :user_id, :value => current_user.id %>  
-  <%= f.label :project_name %>
-  <%= f.text_field :project_name %>
+  <%= f.text_field :project_name, :placeholder => "Project name" %>
 
-	<h4>Observations</h4>
+	<h4>Observations and Measurements</h4>
 
   <%= f.fields_for :observations do |obs| %>
   	<%= render "observation_fields", :f => obs %>
@@ -14,5 +13,6 @@
 	  <p><%= link_to_add_association "Add Observation", f, :observations %></p>
   </div>
 
-  <%= f.submit class: "btn" %>
+  <%= f.submit 'Save', class: "btn" %>
+  
 <% end %>
