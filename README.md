@@ -93,9 +93,14 @@ A data point belongs to a data row (so a project) and references a measurement, 
     $ heroku login
     $ heroku create
     $ rake assets:precompile
-    $ 
+    
+    $ RAILS_ENV=production rake assets:precompile
+    
+    $ git commit -a -m "Add precompiled assets for Heroku"
+
     $ git push heroku master
-    $ heroku open
+    $ heroku run rake db:migrate
 
     $ heroku rename oboe
+    $ heroku open
 
