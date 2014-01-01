@@ -1,0 +1,20 @@
+<% provide(:title, "Edit row") %> 
+
+<div class="row">
+	<div class="span8 offset2">
+		<h3>Edit Row</h3>
+
+    <% temp = 0 %>
+    <% @project.observations.each do |obs| %>
+      <% temp = temp + obs.measurements.count %>
+    <% end %>
+		
+    <% if temp > 0 %>
+      <%= render 'row_form' %>
+    <% else %>
+      <div class="alert alert-danger">Can't add data because there are no defined measurements.</div>
+    <% end %>
+		
+    <%= link_to 'Back', edit_context_project_path %>
+	</div>
+</div>

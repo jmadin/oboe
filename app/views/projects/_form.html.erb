@@ -1,27 +1,18 @@
 <%= form_for(@project) do |f| %>
-<%= render 'shared/error_messages', object: f.object %>
+  <%= render 'shared/error_messages', object: f.object %>
 
-  <%#= f.hidden_field :contributor_id, :value => current_contributor.id %>  
-	
-	
-    <%#= f.label :user_id %>
-  	<%#= f.select :user_id, User.all.collect {|a| [a.name, a.id]}, {:selected => current_user.id}, class: "input-large" %>
-    <%= f.hidden_field :user_id, :value => current_user.id %>  
-    
-
-    <%= f.label :project_name %>
-    <%= f.text_field :project_name, class: "input-large" %>
+  <%= f.hidden_field :user_id, :value => current_user.id %>  
+  <%= f.label :project_name %>
+  <%= f.text_field :project_name, class: "input-large" %>
 
 	<h4>Observations</h4>
 
   <%= f.fields_for :observations do |obs| %>
   	<%= render "observation_fields", :f => obs %>
-
   <% end %>
 	<div class="links">
 	  <p><%= link_to_add_association "Add Observation", f, :observations %></p>
   </div>
 
   <%= f.submit class: "btn" %>
-
 <% end %>

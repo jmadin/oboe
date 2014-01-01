@@ -1,0 +1,11 @@
+<div class="nested-fields">
+  <div class="alert alert-danger">
+
+    <%= f.text_field :value, class: "input-large" %>
+    <%#= f.select :measurement_id, @project.observations.collect {|a| [Trait.find(Measurement.where(["observation_id = ?", a.id]).first.trait_id).trait_name, Measurement.where(["observation_id = ?", a.id]).first.id]}, {:include_blank => 'Choose measurement...'}, class: "input-medium" %>
+    <%#= f.select :measurement_id, @project.observations.collect {|a| Measurement.where(["observation_id = ?", a.id]).first.id}, {:include_blank => 'Choose measurement...'}, class: "input-large" %>
+    <%= f.text_field :measurement_id, :placeholder => 12, class: "input-medium" %>
+
+    <p class="pull-right"><%= link_to_remove_association "remove", f %></p>
+  </div>
+</div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131230093036) do
+ActiveRecord::Schema.define(version: 20131230204156) do
 
   create_table "contexts", force: true do |t|
     t.integer  "project_id"
@@ -24,15 +24,6 @@ ActiveRecord::Schema.define(version: 20131230093036) do
   add_index "contexts", ["has_context_id"], name: "index_contexts_on_has_context_id"
   add_index "contexts", ["observation_id"], name: "index_contexts_on_observation_id"
   add_index "contexts", ["project_id"], name: "index_contexts_on_project_id"
-
-  create_table "ds", force: true do |t|
-    t.integer  "measurement_id"
-    t.string   "value"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "ds", ["measurement_id"], name: "index_ds_on_measurement_id"
 
   create_table "entities", force: true do |t|
     t.string   "entity_name"
@@ -63,6 +54,17 @@ ActiveRecord::Schema.define(version: 20131230093036) do
   add_index "observations", ["entity_id"], name: "index_observations_on_entity_id"
   add_index "observations", ["project_id"], name: "index_observations_on_project_id"
 
+  create_table "points", force: true do |t|
+    t.integer  "row_id"
+    t.integer  "measurement_id"
+    t.string   "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "points", ["measurement_id"], name: "index_points_on_measurement_id"
+  add_index "points", ["row_id"], name: "index_points_on_row_id"
+
   create_table "projects", force: true do |t|
     t.string   "project_name"
     t.integer  "user_id"
@@ -82,6 +84,14 @@ ActiveRecord::Schema.define(version: 20131230093036) do
   add_index "relationships", ["followed_id"], name: "index_relationships_on_followed_id"
   add_index "relationships", ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
   add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id"
+
+  create_table "rows", force: true do |t|
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "rows", ["project_id"], name: "index_rows_on_project_id"
 
   create_table "standards", force: true do |t|
     t.string   "standard_name"

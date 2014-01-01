@@ -1,4 +1,12 @@
 SampleApp::Application.routes.draw do
+  resources :points
+
+  # resources :rows
+
+  resources :rows do
+    resources :points
+  end
+
   resources :ds
 
   resources :standards
@@ -26,7 +34,9 @@ SampleApp::Application.routes.draw do
   resources :projects do
     member do
       post 'update_context'
+      post 'update_row'
       get 'edit_context'
+      get 'edit_row'
     end
   end
   resources :relationships, only: [:create, :destroy]

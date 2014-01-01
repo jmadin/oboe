@@ -1,16 +1,20 @@
-<%= form_for(@d) do |f| %>
-  <% if @d.errors.any? %>
+<%= form_for(@point) do |f| %>
+  <% if @point.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@d.errors.count, "error") %> prohibited this d from being saved:</h2>
+      <h2><%= pluralize(@point.errors.count, "error") %> prohibited this point from being saved:</h2>
 
       <ul>
-      <% @d.errors.full_messages.each do |msg| %>
+      <% @point.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
 
+  <div class="field">
+    <%= f.label :row_id %><br>
+    <%= f.text_field :row_id %>
+  </div>
   <div class="field">
     <%= f.label :measurement_id %><br>
     <%= f.text_field :measurement_id %>

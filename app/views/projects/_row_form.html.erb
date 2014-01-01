@@ -1,0 +1,18 @@
+<%= form_for(@project, :url => {:controller => "projects", :action => "update_row"}, :method => "post") do |f| %>
+<%= render 'shared/error_messages', object: f.object %>
+
+  <%= f.hidden_field :project_id, :value => @project.id %>  
+  
+  <%= f.fields_for :rows do |row| %>
+  	<%= render "row_fields", :f => row %>
+  <% end %>
+	<div class="links">
+	  <p><%= link_to_add_association "Add Row", f, :rows %></p>
+  </div>
+
+  <%= f.submit class: "btn" %>
+
+<% end %>
+
+
+

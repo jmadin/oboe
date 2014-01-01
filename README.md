@@ -39,3 +39,9 @@ bundle exec rake db:migrate
 
 rails generate scaffold D measurement:references value:string
 bundle exec rake db:migrate
+
+rails generate scaffold row project:references
+bundle exec rake db:migrate
+
+rails generate scaffold point row:references measurement:references value:string
+bundle exec rake db:migrate

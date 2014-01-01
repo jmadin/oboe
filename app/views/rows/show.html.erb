@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @row.project.project_name %>
+</p>
+
+<p>
+<%= link_to 'Edit', edit_row_path(@row) %> |
+<%= link_to 'Back', rows_path %>
+</p>
+
+
+<% @row.project.observations.each do |obs| %>
+  <div class="alert alert-warning">
+  <%= obs.id %>
+  <% obs.measurements.each do |mea| %>
+    <div class="alert alert-danger">
+    <%= mea.id %>
+    
+  </div>
+  <% end %>
+</div>
+<% end %>
+
+
+
+
+
+
+
+<h3>Rows</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Row</th>
+      <th>Measurement</th>
+      <th>Value</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+    <%= render @row.points %>
+
+    <tr>
+    	<%= form_for([@row, @row.points.build]) do |f| %>
+
+    	  <td><%= f.text_field :row_id, :placeholder => @row %></td>
+    	  <td><%= f.text_field :measurement_id %></td>
+        <td><%= f.text_field :value %></td>
+
+    	  <td><%= f.submit class: "btn" %></td>
+    	<% end %>
+    </tr>
+
+  </tbody>
+</table>
+
+<br>
+
+<%#= link_to 'New Point', new_point_path %>

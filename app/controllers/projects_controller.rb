@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
-  before_action :signed_in_user, only: [:create, :show, :edit, :edit_context, :update, :update_context, :destroy]
-  before_action :correct_user,   only: [:edit, :edit_context, :update, :update_context, :destroy]
-  before_action :set_project, only: [:show, :edit, :edit_context]
+  before_action :signed_in_user, only: [:create, :show, :edit, :edit_context, :edit_row, :update, :update_context, :update_row, :destroy]
+  before_action :correct_user,   only: [:edit, :edit_context, :edit_row, :update, :update_context, :update_row, :destroy]
+  before_action :set_project, only: [:show, :edit, :edit_context, :edit_row]
 
   # before_action :signed_in_user,
   #               only: [:index, :edit, :update, :destroy, :following, :followers]
@@ -11,6 +11,7 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
+    # @row = Row.new
   end
 
   def new
@@ -33,8 +34,18 @@ class ProjectsController < ApplicationController
   end
 
   def edit_context
-    @context = Context.all
+    # @context = Context.all
+    # @context = Context.all
     # 1.times { @project.contexts.build }
+  end
+
+  def edit_row
+    # 1.times { @project.rows.build }
+    # 1.times do
+    # @user = User.find(params[:id])
+    
+    # row = @project.rows.build
+    # @points = Array.new(4) { row.points.build }
   end
 
   def update
@@ -49,9 +60,19 @@ class ProjectsController < ApplicationController
   def update_context
     if @project.update_attributes(project_params)
       flash[:success] = "Context updated"
-      render 'show'
+      # render 'show'
+      redirect_to edit_row_project_path
     else
       render 'edit_context'
+    end
+  end
+
+  def update_row
+    if @project.update_attributes(project_params)
+      flash[:success] = "Row updated"
+      render 'show'
+    else
+      render 'show'
     end
   end
   
@@ -67,7 +88,14 @@ class ProjectsController < ApplicationController
     end
 
     def project_params
-      params.require(:project).permit(:user_id, :project_name, observations_attributes: [:id, :entity_id, :_destroy, measurements_attributes: [:id, :trait_id, :standard_id, :value, :_destroy], contexts_attributes: [:id, :observation_id, :has_context_id, :_destroy]], contexts_attributes: [:id, :observation_id, :has_context_id, :_destroy])
+      params.require(:project).permit(:user_id, :project_name, 
+        observations_attributes: [:id, :entity_id, :_destroy, 
+          measurements_attributes: [:id, :trait_id, :standard_id, :_destroy], 
+          contexts_attributes: [:id, :project_id, :observation_id, :has_context_id, :_destroy]
+        ], 
+        contexts_attributes: [:id, :project_id, :observation_id, :has_context_id, :_destroy],
+        rows_attributes: [:id, :project_id, :_destroy, points_attributes: [:id, :row_id, :measurement_id, :value, :_destroy]],
+      )
     end
   
     # def correct_user
@@ -81,5 +109,4 @@ class ProjectsController < ApplicationController
     end
     
 end
-
 
