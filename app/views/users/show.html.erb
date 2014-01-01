@@ -1,25 +1,30 @@
 <% provide(:title, @user.name) %>
+
 <div class="row">
-  <aside class="span4">
-    <section>
-      <h1>
-        <%#= gravatar_for @user %>
-        <%= @user.name %>
-      </h1>
-      <%= @user.email %>
-    </section>
-    <section>
-      <%= render 'shared/stats' %>
-    </section>
-  </aside>
-  <div class="span8">
-    <%= render 'follow_form' if signed_in? %>
-    <% if @user.projects.any? %>
-      <h3>Projects (<%= @user.projects.count %>)</h3>
-      <ol class="projects">
-        <%= render @projects %>
-      </ol>
-      <%= will_paginate @projects %>
-    <% end %>
+	<div class="span8 offset2">
+
+
+    <div class="span3">
+      <section>
+        <h3>
+          <%#= gravatar_for @user %>
+          <%= @user.name %>
+        </h3>
+        <%= @user.email %>
+      </section>
+      <section>
+        <%= render 'shared/stats' %>
+      </section>
+    </div>
+    <div class="span4">
+      <%= render 'follow_form' if signed_in? %>
+      <% if @user.projects.any? %>
+        <h3>Projects (<%= @user.projects.count %>)</h3>
+        <ol class="projects">
+          <%= render @projects %>
+        </ol>
+        <%= will_paginate @projects %>
+      <% end %>
+    </div>
   </div>
 </div>
