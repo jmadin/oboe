@@ -1,8 +1,6 @@
-# Ruby on Rails Tutorial: sample application
+# Observations and Measurements database
 
-This is the sample application for
-[*Ruby on Rails Tutorial: Learn Web Development with Rails*](http://railstutorial.org/)
-by [Michael Hartl](http://michaelhartl.com/). You can use this reference implementation to help track down errors if you end up having trouble with code in the tutorial. In particular, as a first debugging check I suggest getting the test suite to pass on your local machine:
+The project was built on Michael Hartl's sample_app_rails_4 from github, using these commands:
 
     $ cd /tmp
     $ git clone https://github.com/railstutorial/sample_app_rails_4.git
@@ -10,38 +8,69 @@ by [Michael Hartl](http://michaelhartl.com/). You can use this reference impleme
     $ cp config/database.yml.example config/database.yml
     $ bundle install
     $ bundle exec rake db:migrate
-    $ bundle exec rake db:test:prepare
-    $ bundle exec rspec spec/
 
-If the tests don't pass, it means there may be something wrong with your system. If they do pass, then you can debug your code by comparing it with the reference implementation.
+# Projects
 
+Projects are a way of separating datasets.  This simply has a name and an "enterer", who is just one of the users defined in the Hartl tutorial.
 
-rails generate scaffold Entity entity_name:string
-bundle exec rake db:migrate
+    $ rails generate scaffold Project project_name:string user_id:references
+    $ bundle exec rake db:migrate
 
-rails generate scaffold Trait trait_name:string
-bundle exec rake db:migrate
+# Entities
 
-rails generate scaffold Standard standard_name:string
-bundle exec rake db:migrate
+Entities are things that can be observed and measured, such as corals, time, locations, etc.
+  
+    $ rails generate scaffold Entity entity_name:string
+    $ bundle exec rake db:migrate
 
-rails generate scaffold Observation project:references entity:references
-bundle exec rake db:migrate
+# Traits
 
-rails generate scaffold Measurement observation:references trait:references value:string
-bundle exec rake db:migrate
+Traits (or characteristics) are aspects of entities that can be measured, such as height, color, name, etc.
 
-rails generate migration add_standard_to_measurement standard:references
-bundle exec rake db:migrate
+    $ rails generate scaffold Trait trait_name:string
+    $ bundle exec rake db:migrate
 
-rails generate scaffold Context project:references observation:references has_context:references
-bundle exec rake db:migrate
+# Standards
 
-rails generate scaffold D measurement:references value:string
-bundle exec rake db:migrate
+Standards relate a measurement value to a prescribed scale or category, such as metre, pH, rank, etc.
 
-rails generate scaffold row project:references
-bundle exec rake db:migrate
+    $ rails generate scaffold Standard standard_name:string
+    $ bundle exec rake db:migrate
 
-rails generate scaffold point row:references measurement:references value:string
-bundle exec rake db:migrate
+# Observations
+
+Observations are made of entities, and are required to make measurements of traits.
+
+    $ rails generate scaffold Observation project:references entity:references
+    $ bundle exec rake db:migrate
+
+# Measurements
+
+Measurements bind a value and standard to a trait of an observed entity.  Note that we do not consider values here, because we are creating a measurement "template".  Data (values) come in later.
+
+    $ rails generate scaffold Measurement observation:references trait:references #value:string
+    $ bundle exec rake db:migrate
+
+    $ rails generate migration add_standard_to_measurement standard:references
+    $ bundle exec rake db:migrate
+
+# Context
+
+Observations can provide context for oner another.  For example, a location can provide context for a coral.
+
+    $ rails generate scaffold Context project:references observation:references has_context:references
+    $ bundle exec rake db:migrate
+
+# Data row
+
+Traits (or characteristics) are aspects of entities that can be measured, such as height, color, name, etc.  A data row belongs to a project and is used to bind together sets of measurements (data points).
+
+    $ rails generate scaffold row project:references
+    $ bundle exec rake db:migrate
+
+# Data point
+
+A data point belongs to a data row (so a project) and references a measurement, giving it a value.  Note that the standard is given above in the measurement model.  This needs some thought, because it means that one can't be flexible about the measurement standard used.  Also, a data point should ecentually bind a resource (i.e., where the value came from, such as a report or scientific paper).
+
+    $ rails generate scaffold point row:references measurement:references value:string
+    $ bundle exec rake db:migrate
