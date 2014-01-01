@@ -82,35 +82,20 @@ A data point belongs to a data row (so a project) and references a measurement, 
 
 # Git and Heroku
 
-git remote add origin https://github.com/jmadin/oboe.git
+    $ git remote add origin https://github.com/jmadin/oboe.git
 
-git add .
-git commit -m "New commit."
-git push -u origin master
+    $ git add .
+    $ git commit -m "New commit."
+    $ git push -u origin master
 
-bundle install --without production
-git commit -a -m "Update Gemfile.lock for Heroku"
-heroku login
-heroku create
-git push heroku master
-heroku open
+    $ bundle install --without production
+    $ git commit -a -m "Update Gemfile.lock for Heroku"
+    $ heroku login
+    $ heroku create
+    $ rake assets:precompile
+    $ 
+    $ git push heroku master
+    $ heroku open
 
-heroku rename oboe
+    $ heroku rename oboe
 
-
-# User
-
-rails generate scaffold User name:string email:string
-bundle exec rake db:migrate
-
-
-
-
-# Project
-
-rails generate scaffold Project user_id:integer project_name:string 
-bundle exec rake db:migrate
-
-
-contributor_id
-project_name
