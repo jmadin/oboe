@@ -89,14 +89,14 @@ A data point belongs to a data row (so a project) and references a measurement, 
     $ git push -u origin master
 
     $ bundle install --without production
-    $ git commit -a -m "Update Gemfile.lock for Heroku"
+    $ git commit -a -m "Update Gemfile.lock for Heroku."
     $ heroku login
     $ heroku create
     $ rake assets:precompile
     
     $ RAILS_ENV=production rake assets:precompile
     
-    $ git commit -a -m "Add precompiled assets for Heroku"
+    $ git commit -a -m "Add precompiled assets for Heroku."
 
     $ git push heroku master
     $ heroku run rake db:migrate
