@@ -1,9 +1,13 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+	<div class="span8 offset2">
 
-<p>
-  <strong>Trait name:</strong>
-  <%= @trait.trait_name %>
-</p>
+    <p>
+      <strong>Trait name:</strong>
+      <%= @trait.trait_name %>
+    </p>
 
-<%= link_to 'Edit', edit_trait_path(@trait) %> |
-<%= link_to 'Back', traits_path %>
+    <%= link_to 'Edit', edit_trait_path(@trait) %> |
+    <%= link_to 'Back', traits_path %>
+
+  </div>
+</div>

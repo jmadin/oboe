@@ -1,21 +1,8 @@
 <%= form_for(@entity) do |f| %>
-  <% if @entity.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@entity.errors.count, "error") %> prohibited this entity from being saved:</h2>
+<%= render 'shared/error_messages', object: f.object %>
 
-      <ul>
-      <% @entity.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :entity_name %><br>
+    <%= f.label :entity_name %>
     <%= f.text_field :entity_name %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
+    <%= f.submit class: 'btn' %>
 <% end %>

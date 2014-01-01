@@ -1,6 +1,6 @@
 <div class="nested-fields">
   <div class="alert alert-warning">
-	<%= f.select :entity_id, Entity.all.collect {|a| [a.entity_name, a.id]}, {:include_blank => 'Choose entity'}, class: "input-large" %>
+	<%= f.select :entity_id, Entity.all.collect {|a| [a.entity_name, a.id]}, {:include_blank => 'Choose entity...'}, class: "input-large" %>
   
 	<p class="pull-right"><%= link_to_remove_association "remove", f %></p>
   

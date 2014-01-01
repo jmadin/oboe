@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   include SessionsHelper
 
-  WillPaginate.per_page = 5
+  WillPaginate.per_page = 8
   
   def correct_user
     @user = User.find(params[:id])

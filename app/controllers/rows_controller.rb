@@ -2,7 +2,6 @@ class RowsController < ApplicationController
 
   before_action :signed_in_user, only: [:index, :edit, :update, :destroy]
   before_action :correct_user,   only: [:edit, :update]
-  before_action :admin_user,     only: :destroy
 
   before_action :set_row, only: [:show, :edit, :update, :destroy]
 

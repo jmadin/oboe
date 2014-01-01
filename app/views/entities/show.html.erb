@@ -1,9 +1,13 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+	<div class="span8 offset2">
 
-<p>
-  <strong>Entity name:</strong>
-  <%= @entity.entity_name %>
-</p>
+    <p>
+      <strong>Entity name:</strong>
+      <%= @entity.entity_name %>
+    </p>
 
-<%= link_to 'Edit', edit_entity_path(@entity) %> |
-<%= link_to 'Back', entities_path %>
+    <%= link_to 'Edit', edit_entity_path(@entity) %> |
+    <%= link_to 'Back', entities_path %>
+
+  </div>  
+</div>

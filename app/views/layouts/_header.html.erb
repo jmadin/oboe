@@ -5,6 +5,22 @@
         <ul class="nav pull-left">
         <li><%= link_to "Oboe", root_path %></li>
         </ul>
+
+        <% if signed_in? %>
+        <ul class="nav pull-left">
+          <li id="fat-menu" class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              Data <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li><%= link_to "Entities", entities_path %></li>
+              <li><%= link_to "Traits", traits_path %></li>
+            </ul>
+          </li>
+        </ul>
+        <% end %>
+
+
         <ul class="nav pull-right">
           <li><%= link_to "Home", root_path %></li>
           <% if signed_in? %>

@@ -1,14 +1,14 @@
 class EntitiesController < ApplicationController
   before_action :signed_in_user, only: [:index, :edit, :update, :destroy]
   before_action :correct_user,   only: [:edit, :update]
-  before_action :admin_user,     only: :destroy
 
   before_action :set_entity, only: [:show, :edit, :update, :destroy]
 
   # GET /entities
   # GET /entities.json
   def index
-    @entities = Entity.all
+    # @entities = Entity.all
+    @entities = Entity.paginate(page: params[:page])    
   end
 
   # GET /entities/1
@@ -27,42 +27,34 @@ class EntitiesController < ApplicationController
 
   # POST /entities
   # POST /entities.json
-  def create
+  def create    
     @entity = Entity.new(entity_params)
-
-    respond_to do |format|
-      if @entity.save
-        format.html { redirect_to @entity, notice: 'Entity was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @entity }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @entity.errors, status: :unprocessable_entity }
-      end
+    if @entity.save
+      flash[:success] = "Entity created"
+      redirect_to entities_path
+    else
+      render 'new'
     end
   end
 
   # PATCH/PUT /entities/1
   # PATCH/PUT /entities/1.json
   def update
-    respond_to do |format|
-      if @entity.update(entity_params)
-        format.html { redirect_to @entity, notice: 'Entity was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @entity.errors, status: :unprocessable_entity }
-      end
+    if @entity.update_attributes(entity_params)
+      flash[:success] = "Entity updated"
+      redirect_to entity_path
+    else
+      render 'edit'
     end
+
   end
 
   # DELETE /entities/1
   # DELETE /entities/1.json
   def destroy
     @entity.destroy
-    respond_to do |format|
-      format.html { redirect_to entities_url }
-      format.json { head :no_content }
-    end
+    flash[:danger] = "Entity destroyed."
+    redirect_to entities_url
   end
 
   private

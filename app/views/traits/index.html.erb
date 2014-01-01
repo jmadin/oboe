@@ -1,27 +1,31 @@
-<h1>Listing traits</h1>
+<div class="row">
+	<div class="span8 offset2">
 
-<table>
-  <thead>
-    <tr>
-      <th>Trait name</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+    <h3>Listing traits</h3>
 
-  <tbody>
-    <% @traits.each do |trait| %>
-      <tr>
-        <td><%= trait.trait_name %></td>
-        <td><%= link_to 'Show', trait %></td>
-        <td><%= link_to 'Edit', edit_trait_path(trait) %></td>
-        <td><%= link_to 'Destroy', trait, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    <%= will_paginate %>
 
-<br>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Trait name</th>
+          <th></th>
+        </tr>
+      </thead>
 
-<%= link_to 'New Trait', new_trait_path %>
+      <tbody>
+        <% @traits.each do |trait| %>
+          <tr>
+            <td><%= trait.trait_name %></td>
+            <td style="text-align:right;"><%= link_to 'Show', trait %> |
+            <%= link_to 'Edit', edit_trait_path(trait) %> |
+            <%= link_to 'Delete', trait, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%= link_to 'New Trait', new_trait_path, class: 'btn' %>
+
+  </div>  
+</div>

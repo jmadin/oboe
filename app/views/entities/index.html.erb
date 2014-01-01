@@ -1,27 +1,35 @@
-<h1>Listing entities</h1>
+<div class="row">
+	<div class="span8 offset2">
 
-<table>
-  <thead>
-    <tr>
-      <th>Entity name</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+    <h3>Listing entities</h3>
 
-  <tbody>
-    <% @entities.each do |entity| %>
-      <tr>
-        <td><%= entity.entity_name %></td>
-        <td><%= link_to 'Show', entity %></td>
-        <td><%= link_to 'Edit', edit_entity_path(entity) %></td>
-        <td><%= link_to 'Destroy', entity, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<br>
+    <%= will_paginate %>
 
-<%= link_to 'New Entity', new_entity_path %>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Entity name</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @entities.each do |entity| %>
+          <tr>
+            <td><%= entity.entity_name %></td>
+            <td style="text-align:right;"><%= link_to 'Show', entity %> |
+            <%= link_to 'Edit', edit_entity_path(entity) %> |
+            <%= link_to 'Delete', entity, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+
+
+    <%= link_to 'New Entity', new_entity_path, class: "btn" %>
+
+  </div>  
+</div>

@@ -1,4 +1,4 @@
-SampleApp::Application.routes.draw do
+Obme::Application.routes.draw do
   resources :points
 
   # resources :rows

@@ -1,7 +1,5 @@
 class TraitsController < ApplicationController
   before_action :signed_in_user, only: [:index, :edit, :update, :destroy]
-  before_action :correct_user,   only: [:edit, :update]
-  before_action :admin_user,     only: :destroy
 
   before_action :set_trait, only: [:show, :edit, :update, :destroy]
 
@@ -9,6 +7,8 @@ class TraitsController < ApplicationController
   # GET /traits.json
   def index
     @traits = Trait.all
+    @traits = Trait.paginate(page: params[:page])    
+    
   end
 
   # GET /traits/1
@@ -29,29 +29,22 @@ class TraitsController < ApplicationController
   # POST /traits.json
   def create
     @trait = Trait.new(trait_params)
-
-    respond_to do |format|
-      if @trait.save
-        format.html { redirect_to @trait, notice: 'Trait was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @trait }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @trait.errors, status: :unprocessable_entity }
-      end
+    if @trait.save
+      flash[:success] = "Trait created"
+      redirect_to traits_path
+    else
+      render 'new'
     end
   end
 
   # PATCH/PUT /traits/1
   # PATCH/PUT /traits/1.json
   def update
-    respond_to do |format|
-      if @trait.update(trait_params)
-        format.html { redirect_to @trait, notice: 'Trait was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @trait.errors, status: :unprocessable_entity }
-      end
+    if @trait.update_attributes(trait_params)
+      flash[:success] = "Trait updated"
+      redirect_to trait_path
+    else
+      render 'edit'
     end
   end
 
@@ -59,10 +52,8 @@ class TraitsController < ApplicationController
   # DELETE /traits/1.json
   def destroy
     @trait.destroy
-    respond_to do |format|
-      format.html { redirect_to traits_url }
-      format.json { head :no_content }
-    end
+    flash[:danger] = "Trait destroyed."
+    redirect_to traits_url    
   end
 
   private

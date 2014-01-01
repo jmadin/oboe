@@ -1,6 +1,8 @@
 <% if signed_in? %>
   <div class="row">
-    <aside class="span4">
+  	<div class="span8 offset2">
+
+      <div class="span3">
       <section>
         <%= render 'shared/user_info' %>
       </section>
@@ -9,13 +11,16 @@
       </section>
       <section>
         <%#= render 'shared/project_form' %>
+        <br/>
         <%= link_to 'New Project', new_project_path, class: 'btn' %>
         
       </section>
-    </aside>
-    <div class="span8">
+    </div>
+    
+    <div class="span4">
       <h3>Project Feed</h3>
       <%= render 'shared/feed' %>
+    </div>  
     </div>
   </div>  
 <% else %>
