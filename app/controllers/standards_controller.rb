@@ -1,14 +1,13 @@
 class StandardsController < ApplicationController
   before_action :signed_in_user, only: [:index, :edit, :update, :destroy]
-  before_action :correct_user,   only: [:edit, :update]
-  before_action :admin_user,     only: :destroy
 
   before_action :set_standard, only: [:show, :edit, :update, :destroy]
 
   # GET /standards
   # GET /standards.json
   def index
-    @standards = Standard.all
+    # @standards = Standard.all
+    @standards = Standard.paginate(page: params[:page])    
   end
 
   # GET /standards/1
@@ -25,44 +24,34 @@ class StandardsController < ApplicationController
   def edit
   end
 
-  # POST /standards
-  # POST /standards.json
-  def create
+  def create    
     @standard = Standard.new(standard_params)
-
-    respond_to do |format|
-      if @standard.save
-        format.html { redirect_to @standard, notice: 'Standard was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @standard }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @standard.errors, status: :unprocessable_entity }
-      end
+    if @standard.save
+      flash[:success] = "Standard created"
+      redirect_to standards_path
+    else
+      render 'new'
     end
   end
 
-  # PATCH/PUT /standards/1
-  # PATCH/PUT /standards/1.json
+  # PATCH/PUT /entities/1
+  # PATCH/PUT /entities/1.json
   def update
-    respond_to do |format|
-      if @standard.update(standard_params)
-        format.html { redirect_to @standard, notice: 'Standard was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @standard.errors, status: :unprocessable_entity }
-      end
+    if @standard.update_attributes(standard_params)
+      flash[:success] = "Standard updated"
+      redirect_to standard_path
+    else
+      render 'edit'
     end
+
   end
 
-  # DELETE /standards/1
-  # DELETE /standards/1.json
+  # DELETE /entities/1
+  # DELETE /entities/1.json
   def destroy
     @standard.destroy
-    respond_to do |format|
-      format.html { redirect_to standards_url }
-      format.json { head :no_content }
-    end
+    flash[:danger] = "Standard destroyed."
+    redirect_to standards_url
   end
 
   private

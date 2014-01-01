@@ -1,27 +1,33 @@
-<h1>Listing standards</h1>
+<div class="row">
+	<div class="span8 offset2">
+    <h3>Standards</h3>
 
-<table>
-  <thead>
-    <tr>
-      <th>Standard name</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+    <%= will_paginate %>
 
-  <tbody>
-    <% @standards.each do |standard| %>
-      <tr>
-        <td><%= standard.standard_name %></td>
-        <td><%= link_to 'Show', standard %></td>
-        <td><%= link_to 'Edit', edit_standard_path(standard) %></td>
-        <td><%= link_to 'Destroy', standard, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Standard name</th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
 
-<br>
+      <tbody>
+        <% @standards.each do |standard| %>
+          <tr>
+            <td><%= standard.standard_name %></td>
+            <td style="text-align:right;"><%= link_to 'Show', standard %> |
+            <%= link_to 'Edit', edit_standard_path(standard) %> |
+            <%= link_to 'Delete', standard, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
 
-<%= link_to 'New Standard', new_standard_path %>
+
+    <%= link_to 'New Standard', new_standard_path, class: 'btn' %>
+
+	</div>
+</div>

@@ -1,9 +1,13 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+	<div class="span8 offset2">
 
-<p>
-  <strong>Standard name:</strong>
-  <%= @standard.standard_name %>
-</p>
+    <p>
+      <strong>Standard name:</strong>
+      <%= @standard.standard_name %>
+    </p>
 
-<%= link_to 'Edit', edit_standard_path(@standard) %> |
-<%= link_to 'Back', standards_path %>
+    <%= link_to 'Edit', edit_standard_path(@standard) %> |
+    <%= link_to 'Back', standards_path %>
+
+	</div>
+</div>

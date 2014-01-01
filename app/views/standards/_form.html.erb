@@ -1,21 +1,9 @@
 <%= form_for(@standard) do |f| %>
-  <% if @standard.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@standard.errors.count, "error") %> prohibited this standard from being saved:</h2>
+  <%= render 'shared/error_messages', object: f.object %>
 
-      <ul>
-      <% @standard.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= f.label :standard_name %>
+  <%= f.text_field :standard_name %>
 
-  <div class="field">
-    <%= f.label :standard_name %><br>
-    <%= f.text_field :standard_name %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= f.submit class: 'btn' %>
+
 <% end %>

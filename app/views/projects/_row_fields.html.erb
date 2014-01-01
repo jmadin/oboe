@@ -1,15 +1,19 @@
 <div class="nested-fields">
-  <div class="alert alert-success">
   
-    <%= f.hidden_field :project_id, :value => @project.id %>  
-    
-    <%= f.fields_for :points do |poi| %>      
-  	  <%= render "point_fields", :f => poi %>
+  <%= f.hidden_field :project_id, :value => @project.id %>  
+  
+  <% if f.object.points.blank? %>      
+    <% @project.observations.each do |obs| %>
+      <% obs.measurements.each do |mea| %>
+          <% f.object.points.build(:measurement_id => mea.id) %>
+      <% end %>
     <% end %>
-  	<div class="links">
-  	  <p><%= link_to_add_association "Add Point", f, :points %></p>
-    </div>
-        
-	<p class="pull-right"><%= link_to_remove_association "remove", f %></p>
-</div>
+  <% end %>
+
+  <%= f.fields_for :points do |poi| %>      
+    <%= poi.text_field :value, class: "input-mini" %>
+    <%= poi.hidden_field :measurement_id %>  
+  <% end %>
+  
+  <p class="pull-right"><%= link_to_remove_association "remove", f %></p>
 </div>

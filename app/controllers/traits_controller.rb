@@ -6,7 +6,7 @@ class TraitsController < ApplicationController
   # GET /traits
   # GET /traits.json
   def index
-    @traits = Trait.all
+    # @traits = Trait.all
     @traits = Trait.paginate(page: params[:page])    
     
   end

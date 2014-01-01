@@ -101,6 +101,8 @@ A data point belongs to a data row (so a project) and references a measurement, 
     $ git push heroku master
     $ heroku run rake db:migrate
 
-    $ heroku rename oboe
+    $ heroku rename obme
     $ heroku open
 
+
+git remote add heroku git@heroku.com:agile-headland-8674.git
