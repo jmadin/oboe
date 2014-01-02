@@ -41,7 +41,7 @@
     
     <% if @project.rows.count > 0 %>
       <h3>Data</h3>
-    
+      <p>Note that the measurement IDs are included because there have been some issue lining up the observation and measurement structure with data.</p>
       <table class="table table-condensed">
         <thead>
           <tr>
@@ -75,10 +75,9 @@
       
         <tbody>
           <% @project.rows.each do |row| %>
-          <%= row %>
             <tr>
               <% row.points.each do |poi| %>
-                <td><%= poi.value %> [<%= poi.measurement_id %>]</td>
+                <td><%= poi.value %> <font style="color:lightgrey;">[<%= poi.measurement_id %>]</font></td>
               <% end %>
             </tr>
           <% end %>  
