@@ -6,10 +6,12 @@
 
 		<h3>Edit Context</h3>
 
+    <p>The entities that were observed provide context for other entities.  Define these nested contextual relationships here.</p>
+
     <% if @project.observations.count > 1 %>
       <%= render 'context_form' %>
     <% else %>
-      <div class="alert alert-danger">Can't add context because there are less than two defined observations.</div>
+      <div class="alert alert-danger">You can't add context because fewer than two entities are captured in your model.</div>
     <% end %>
 		
     <%= link_to 'Undo', edit_context_project_path %> |

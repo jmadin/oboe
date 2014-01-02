@@ -1,36 +1,54 @@
 <%= form_for(@project, :url => {:controller => "projects", :action => "update_row"}, :method => "post") do |f| %>
 <%= render 'shared/error_messages', object: f.object %>
-  <div class="alert alert-success">
-    <%= f.hidden_field :project_id, :value => @project.id %>  
+  <%= f.hidden_field :project_id, :value => @project.id %>  
 
-    <div style="display: table;">
-      
-    <div style="display: table-row;">
-      <div style="display: table-cell;padding:">
-      </div>
-      
-      <% @project.observations.each do |obs| %>
-        <% obs.measurements.each do |mea| %>
-          <div style="display: table-cell;padding:5px;">
-            <%= Trait.find(Measurement.find(mea.id).trait_id).trait_name %> 
-          </div>
+  <table>    
+    <thead>
+      <tr>
+        <td>Entity:</td>      
+        <% @project.observations.each do |obs| %>
+          <% mark = 0 %>
+          <% obs.measurements.each do |mea| %>
+            <% mark = mark + 1 %>
+          <% end %>
+          <% if obs.measurements.count > 0 %>
+            <td colspan='<%= mark %>'>
+              <div class="alert alert-warning" style="margin:2px;padding:5px;">
+                <%= Entity.find(Observation.find(obs.id).entity_id).entity_name %>
+              </div>
+            </td>
+          <% end %>
         <% end %>
-      <% end %>
-    </div>
-
-    <%= f.fields_for :rows do |row| %>
-    	<%= render "row_fields", :f => row %>
-    <% end %>
+        <td></td>      
+      </tr>
+      <tr>
+        <td>Trait:</td>
+        <% @project.observations.each do |obs| %>
+          <% obs.measurements.each do |mea| %>
+            <td>
+              <div class="alert alert-danger" style="margin:2px;padding:5px;">              
+                <%= Trait.find(Measurement.find(mea.id).trait_id).trait_name %><br/>
+                (<%= Standard.find(Measurement.find(mea.id).standard_id).standard_name %>)
+              </div>
+            </td>
+          <% end %>
+        <% end %>
+        <td><div style="margin:2px;padding:5px;"></div></td>      
+      </tr>
+    </thead>
     
-  </div>
+    <tbody>
+      <%= f.fields_for :rows do |row| %>
+      	<%= render "row_fields", :f => row %>
+      <% end %>
+    </tbody>
+  </table>
 
 	<div class="links">
-	  <p><%= link_to_add_association "Add Row", f, :rows %></p>
+    <p><%= link_to_add_association "Add Row", f, :rows, :"data-association-insertion-node" => "tbody", :"data-association-insertion-method" => "append" %></p>
   </div>
-    
-  </div>
-  <%= f.submit 'Save', class: "btn" %>
   
+  <%= f.submit 'Save', class: "btn" %>  
 <% end %>
 
 

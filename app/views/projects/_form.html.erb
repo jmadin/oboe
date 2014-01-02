@@ -6,6 +6,8 @@
 
 	<h4>Observations and Measurements</h4>
 
+  <p>Define the entities that were observed, and then select the traits of these entities measured and the measurement standard used.  Entities, traits and standards can be added via the "Data" menu at the top of the page.</p>
+
   <%= f.fields_for :observations do |obs| %>
   	<%= render "observation_fields", :f => obs %>
   <% end %>

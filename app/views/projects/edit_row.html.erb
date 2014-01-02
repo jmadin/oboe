@@ -6,6 +6,8 @@
 
 		<h3>Edit Data</h3>
 
+    <p>Data are entered in rows (or sets) as defined in the observation and measurement model.</p>
+
     <% temp = 0 %>
     <% @project.observations.each do |obs| %>
       <% temp = temp + obs.measurements.count %>
@@ -14,7 +16,7 @@
     <% if temp > 0 %>
       <%= render 'row_form' %>
     <% else %>
-      <div class="alert alert-danger">Can't add data because there are no defined measurements.</div>
+      <div class="alert alert-danger">You can't add data because no traits were measured in your model.</div>
     <% end %>
 		
     
