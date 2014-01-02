@@ -5,75 +5,85 @@
   
     <h3>Project Summary</h3>
         
-    <% @project.observations.each do |obs| %>
-      <div class="alert">
-        <h4><%= Entity.find(obs.entity_id).entity_name %></h4>
+    <% if @project.observations.count > 0 %>
+        
+      <% @project.observations.each do |obs| %>
+        <div class="alert">
+          <h4><%= Entity.find(obs.entity_id).entity_name %></h4>
 
-        <% @contexts = @project.contexts.where(["observation_id = ?", obs.id]) %>
-        <% @contexts.each do |con| %>
-          <p>Has context: <%= Entity.find(Observation.find(con.has_context_id).entity_id).entity_name %></p>
-        <% end %>
+          <% @contexts = @project.contexts.where(["observation_id = ?", obs.id]) %>
+          <% @contexts.each do |con| %>
+            <p>Has context: <%= Entity.find(Observation.find(con.has_context_id).entity_id).entity_name %></p>
+          <% end %>
 
-        <% obs.measurements.each do |mea| %>
-          <div class="alert alert-danger">
-            <% if !mea.trait_id.blank? %>
-              Has measured trait: <%= Trait.find(mea.trait_id).trait_name %>
-              <% if !mea.standard_id.blank? %>
-              , using standard: <%= Standard.find(mea.standard_id).standard_name %>
-              <% else %>
-              , using no standard.
+          <% obs.measurements.each do |mea| %>
+            <div class="alert alert-danger">
+              <% if !mea.trait_id.blank? %>
+                Has measured trait: <%= Trait.find(mea.trait_id).trait_name %>
+                <% if !mea.standard_id.blank? %>
+                , using standard: <%= Standard.find(mea.standard_id).standard_name %>
+                <% else %>
+                , using no standard.
+                <% end %>
               <% end %>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    <% else %>
+      <% if current_user?(@project.user) %>
+        <div class="alert alert-danger">"Edit Project" to add the observed entities and add the traits of these entities that were measured.  Edit context to describe which entities provide context for other entities.</div>
+      <% else %>
+        <div class="alert alert-danger"><%= @project.user.name %> hasn't added any observations and measurements to this project yet.</div>
+      <% end %>
     <% end %>
     
     
-    <h3>Data</h3>
+    <% if @project.rows.count > 0 %>
+      <h3>Data</h3>
     
-    <table class="table table-condensed">
-      <thead>
-        <tr>
-          <% @project.observations.each do |obs| %>
-            <% mark = 0 %>
-            <% obs.measurements.each do |mea| %>
-              <% mark = mark + 1 %>
-            <% end %>
-            <% if obs.measurements.count > 0 %>
-              <td colspan='<%= mark %>'>
-                <div class="alert" style="margin:0px;padding:5px;">
-                  <%= Entity.find(Observation.find(obs.id).entity_id).entity_name %>
-                </div>
-              </td>
-            <% end %>
-          <% end %>
-        </tr>
-        <tr style="border-top: none;">
-          <% @project.observations.each do |obs| %>
-            <% obs.measurements.each do |mea| %>
-              <td style="border-top: none;">
-                <div class="alert alert-danger" style="margin:0px;padding:5px;">
-                <%= Trait.find(Measurement.find(mea.id).trait_id).trait_name %><br/>
-                (<%= Standard.find(Measurement.find(mea.id).standard_id).standard_name %>)
-              </div>
-              </td>
-            <% end %>
-          <% end %>
-        </tr>
-      </thead>
-      
-      <tbody>
-        <% @project.rows.each do |row| %>
+      <table class="table table-condensed">
+        <thead>
           <tr>
-            <% row.points.each do |poi| %>
-              <td><%= poi.value %></td>
+            <% @project.observations.each do |obs| %>
+              <% mark = 0 %>
+              <% obs.measurements.each do |mea| %>
+                <% mark = mark + 1 %>
+              <% end %>
+              <% if obs.measurements.count > 0 %>
+                <td colspan='<%= mark %>'>
+                  <div class="alert" style="margin:0px;padding:5px;">
+                    <%= Entity.find(Observation.find(obs.id).entity_id).entity_name %>
+                  </div>
+                </td>
+              <% end %>
             <% end %>
           </tr>
-        <% end %>  
-      </tbody>
-    </table>
+          <tr style="border-top: none;">
+            <% @project.observations.each do |obs| %>
+              <% obs.measurements.each do |mea| %>
+                <td style="border-top: none;">
+                  <div class="alert alert-danger" style="margin:0px;padding:5px;">
+                  <%= Trait.find(Measurement.find(mea.id).trait_id).trait_name %><br/>
+                  (<%= Standard.find(Measurement.find(mea.id).standard_id).standard_name %>)
+                </div>
+                </td>
+              <% end %>
+            <% end %>
+          </tr>
+        </thead>
       
+        <tbody>
+          <% @project.rows.each do |row| %>
+            <tr>
+              <% row.points.each do |poi| %>
+                <td><%= poi.value %></td>
+              <% end %>
+            </tr>
+          <% end %>  
+        </tbody>
+      </table>
+    <% end %>  
     
   </div>
 </div>

@@ -3,21 +3,12 @@ class ProjectsController < ApplicationController
   before_action :correct_user,   only: [:edit, :edit_context, :edit_row, :update, :update_context, :update_row, :destroy]
   before_action :set_project, only: [:show, :edit, :edit_context, :edit_row]
 
-  # before_action :signed_in_user,
-  #               only: [:index, :edit, :update, :destroy, :following, :followers]
-  # before_action :correct_user,   only: [:edit, :update]
-  # before_action :admin_user,     only: :destroy
-
-
   def show
     @project = Project.find(params[:id])
-    # @row = Row.new
   end
 
   def new
     @project = Project.new
-    # 3.times { @project.observations.build }
-    # 3.times { @observation.measurements.build }
   end
 
   def create
@@ -25,6 +16,7 @@ class ProjectsController < ApplicationController
     if @project.save
       flash[:success] = "Project created"
       redirect_to edit_context_project_path(@project)
+      # redirect_to project_path(@project)      
     else
       render 'new'
     end
@@ -34,18 +26,9 @@ class ProjectsController < ApplicationController
   end
 
   def edit_context
-    # @context = Context.all
-    # @context = Context.all
-    # 1.times { @project.contexts.build }
   end
 
   def edit_row
-    # 1.times { @project.rows.build }
-    # 1.times do
-    # @user = User.find(params[:id])
-    
-    # row = @project.rows.build
-    # @points = Array.new(4) { row.points.build }
   end
 
   def update
@@ -60,7 +43,6 @@ class ProjectsController < ApplicationController
   def update_context
     if @project.update_attributes(project_params)
       flash[:success] = "Context updated"
-      # render 'show'
       render 'show'
     else
       render 'edit_context'
@@ -97,15 +79,13 @@ class ProjectsController < ApplicationController
         rows_attributes: [:id, :project_id, :_destroy, points_attributes: [:id, :row_id, :measurement_id, :value, :_destroy]],
       )
     end
-  
-    # def correct_user
-    #   @project = current_user.projects.find_by(id: params[:id])
-    #   redirect_to root_url if @project.nil?
-    # end
     
     def correct_user
       @project = Project.find(params[:id])
-      redirect_to(root_url) unless current_user?(@project.user)
+      if !current_user?(@project.user)
+        redirect_to(root_url) 
+        flash[:danger] = "You can't edit other peoples' projects"
+      end
     end
     
 end
