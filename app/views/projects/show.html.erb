@@ -78,12 +78,9 @@
         <% m[0] %>
         <tbody>
           <% @project.rows.each do |row| %>
-            <% temp = 0 %>
-            <%= m[temp] %>
             <tr>
-              <% row.points.each do |poi| %>
-                <td><%= row.points.where("measurement_id = ?", m[temp]).first.value %> <font style="color:lightgrey;">[<%= m[temp] %>]</font></td>
-                <% temp = temp + 1 %>
+              <% m.each do |i| %>
+                <td><%= row.points.where("measurement_id = ?", i).first.value %> <font style="color:lightgrey;">[<%= i %>]</font></td>
               <% end %>
             </tr>
           <% end %>  
