@@ -27,7 +27,7 @@
           <% obs.measurements.each do |mea| %>
             <td>
               <div class="alert alert-danger" style="margin:2px;padding:5px;">              
-                <%= Trait.find(Measurement.find(mea.id).trait_id).trait_name %><br/>
+                <%= Trait.find(Measurement.find(mea.id).trait_id).trait_name %> [<%= mea.id %>]<br/>
                 (<%= Standard.find(Measurement.find(mea.id).standard_id).standard_name %>)
               </div>
             </td>
