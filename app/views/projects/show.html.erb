@@ -82,7 +82,7 @@
             <%= m[temp] %>
             <tr>
               <% row.points.each do |poi| %>
-                <td><%= row.points.where("measurement_id = ?", m[temp]).first.value %> <font style="color:lightgrey;">[<%= poi.measurement_id %>]</font></td>
+                <td><%= row.points.where("measurement_id = ?", m[temp]).first.value %> <font style="color:lightgrey;">[<%= m[temp] %>]</font></td>
                 <% temp = temp + 1 %>
               <% end %>
             </tr>
