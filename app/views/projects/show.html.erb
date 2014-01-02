@@ -41,7 +41,8 @@
     
     <% if @project.rows.count > 0 %>
       <h3>Data</h3>
-      <p>Note that the measurement IDs are included because there have been some issue lining up the observation and measurement structure with data.</p>
+
+      <p>Note that the measurement IDs are included because there have been some issues lining up the observation and measurement structure with data.</p>
       <table class="table table-condensed">
         <thead>
           <tr>
@@ -60,8 +61,10 @@
             <% end %>
           </tr>
           <tr style="border-top: none;">
+            <% m = [] %>
             <% @project.observations.each do |obs| %>
               <% obs.measurements.each do |mea| %>
+                <% m.push(mea.id) %>
                 <td style="border-top: none;">
                   <div class="alert alert-danger" style="margin:0px;padding:5px;">
                   <%= Trait.find(Measurement.find(mea.id).trait_id).trait_name %> [<%= mea.id %>]<br/>
@@ -72,12 +75,15 @@
             <% end %>
           </tr>
         </thead>
-      
+        <% m[0] %>
         <tbody>
           <% @project.rows.each do |row| %>
+            <% temp = 0 %>
+            <%= m[temp] %>
             <tr>
               <% row.points.each do |poi| %>
-                <td><%= poi.value %> <font style="color:lightgrey;">[<%= poi.measurement_id %>]</font></td>
+                <td><%= row.points.where("measurement_id = ?", m[temp]).first.value %> <font style="color:lightgrey;">[<%= poi.measurement_id %>]</font></td>
+                <% temp = temp + 1 %>
               <% end %>
             </tr>
           <% end %>  
