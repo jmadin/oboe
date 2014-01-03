@@ -23,8 +23,10 @@
       </tr>
       <tr>
         <td>Trait:</td>
+        <% m = [] %>
         <% @project.observations.each do |obs| %>
           <% obs.measurements.each do |mea| %>
+            <% m.push(mea.id) %>
             <td>
               <div class="alert alert-danger" style="margin:2px;padding:5px;">              
                 <%= Trait.find(Measurement.find(mea.id).trait_id).trait_name %> [<%= mea.id %>]<br/>
@@ -36,10 +38,33 @@
         <td><div style="margin:2px;padding:5px;"></div></td>      
       </tr>
     </thead>
-    
+
+
     <tbody>
       <%= f.fields_for :rows do |row| %>
-      	<%= render "row_fields", :f => row %>
+      	<%#= render "row_fields", :f => row %>
+        
+        <tr class="nested-fields"> 
+          <td><div style="margin:2px;padding:5px;"></div></td>      
+          <% if row.object.points.blank? %>      
+            <% m.each do |i| %>
+              <% row.object.points.build(:measurement_id => i) %>
+            <% end %>
+          <% end %>
+
+          <%= row.fields_for :points do |poi| %>      
+            <td>
+              <%= poi.text_field :value, :placeholder => poi.object.measurement_id, class: "input-append", style: "margin:0px;padding:5px;" %>
+              <%= poi.hidden_field :measurement_id %>
+            </td>
+          <% end %>
+
+          <td>
+            <div style="margin:2px;padding:5px;"><%= link_to_remove_association "remove", row %></div>
+            <%= row.hidden_field :project_id, :value => @project.id %>
+          </td>
+        </tr>
+        
       <% end %>
     </tbody>
   </table>
