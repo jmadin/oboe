@@ -76,13 +76,15 @@
           </tr>
         </thead>
         <tbody>
-          <% @project.rows.each do |row| %>
-            <tr>
-              <% m.each do |i| %>
-                <td><%= row.points.where("measurement_id = ?", i).first.value %> <font style="color:lightgrey;">[<%= i %>]</font></td>
-              <% end %>
-            </tr>
-          <% end %>  
+          <%# if !m.blank? %>
+            <% @project.rows.each do |row| %>
+              <tr>
+                <% m.each do |i| %>
+                  <td><%= row.points.where("measurement_id = ?", i).first.value %> <font style="color:lightgrey;">[<%= i %>]</font></td>
+                <% end %>
+              </tr>
+            <% end %>  
+          <%# end %>  
         </tbody>
       </table>
     <% end %>  

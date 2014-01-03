@@ -1,6 +1,5 @@
 class PointsController < ApplicationController
   before_action :signed_in_user, only: [:index, :edit, :update, :destroy]
-  before_action :correct_user,   only: [:edit, :update]
 
   before_action :set_point, only: [:show, :edit, :update, :destroy]
 

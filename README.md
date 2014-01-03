@@ -91,7 +91,7 @@ A data point belongs to a data row (so a project) and references a measurement, 
     $ bundle install --without production
     $ git commit -a -m "Update Gemfile.lock for Heroku."
     $ heroku login
-    $ heroku create
+    $ heroku create --stack cedar # for rails > 3.1
     $ rake assets:precompile
     
     $ RAILS_ENV=production rake assets:precompile
