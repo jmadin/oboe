@@ -9,7 +9,7 @@
     <% end %>
   <% end %>
 
-  <%= f.fields_for :points do |poi| %>      
+  <%= f.fields_for :points, f.object.points.sort_by(&:measurement_id) do |poi| %>      
     <td>
       <%= poi.text_field :value, :placeholder => poi.object.measurement_id, class: "input-append", style: "margin:0px;padding:5px;" %>
       <%= poi.hidden_field :measurement_id %>
