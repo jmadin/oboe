@@ -105,4 +105,6 @@ A data point belongs to a data row (so a project) and references a measurement, 
     $ heroku open
 
 
-git remote add heroku git@heroku.com:agile-headland-8674.git
+
+    $ git remote remove heroku
+    $ git remote add heroku git@heroku.com:vast-dawn-2299.git

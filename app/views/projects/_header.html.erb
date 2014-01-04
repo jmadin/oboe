@@ -1,7 +1,7 @@
 <h1><%= @project.project_name %></h1>
 <p>
   <%= link_to 'Summary', project_path %> |
-  <%= link_to "Edit Model", edit_project_path %> |
+  <%= link_to "Edit Project", edit_project_path %> |
   <%= link_to "Edit Context", edit_context_project_path %> |
   <%= link_to "Edit Data", edit_row_project_path %>
   <%= link_to @project.user.name, @project.user, :class => "pull-right" %>

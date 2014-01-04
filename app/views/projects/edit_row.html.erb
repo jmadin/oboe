@@ -7,7 +7,7 @@
 		<h3>Edit Data</h3>
 
     <p>Data are entered in rows (or sets) as defined in the observation and measurement model.</p>
-    <p>Note that the measurement IDs are included because there have been some issue lining up the observation and measurement structure with data. They will not be saved.</p>
+    <p><em>Note</em> that the measurement IDs are included because there have been some issues lining up the observation and measurement structure with data. IDs will not be saved.</p>
 
     <% temp = 0 %>
     <% @project.observations.each do |obs| %>
@@ -18,8 +18,7 @@
       <%= render 'row_form' %>
     <% else %>
       <div class="alert alert-danger">You can't add data because no traits were measured in your model.</div>
-    <% end %>
-		
+    <% end %>		
     
     <%= link_to 'Undo', edit_row_project_path %> |
     <%= link_to 'Cancel', project_path %>

@@ -42,7 +42,7 @@
     <% if @project.rows.count > 0 %>
       <h3>Data</h3>
 
-      <p>Note that the measurement IDs are included because there have been some issues lining up the observation and measurement structure with data.</p>
+      <p><em>Note</em> that the measurement IDs are included because there have been some issues lining up the observation and measurement structure with data.</p>
       <table class="table table-condensed">
         <thead>
           <tr>
@@ -80,7 +80,7 @@
             <% @project.rows.each do |row| %>
               <tr>
                 <% m.each do |i| %>
-                  <td><%= row.points.where("measurement_id = ?", i).first.value %> <font style="color:lightgrey;">[<%= i %>]</font></td>
+                  <td style="border-top: none;"><%= row.points.where("measurement_id = ?", i).first.value %> <font style="color:lightgrey;">[<%= i %>]</font></td>
                 <% end %>
               </tr>
             <% end %>  
