@@ -2,12 +2,15 @@
       
   <td><div style="margin:2px;padding:5px;"></div></td>      
   <% m = [] %>
+  <% @project.observations.each do |obs| %>
+    <% obs.measurements.each do |mea| %>
+      <% m.push(mea.id) %>
+    <% end %>
+  <% end %>
+
   <% if f.object.points.blank? %>      
-    <% @project.observations.each do |obs| %>
-      <% obs.measurements.each do |mea| %>
-        <% m.push(mea.id) %>
-        <% f.object.points.build(:measurement_id => mea.id) %>
-      <% end %>
+    <% m.each do |mea| %>
+      <% f.object.points.build(:measurement_id => mea) %>
     <% end %>
   <% end %>
 
