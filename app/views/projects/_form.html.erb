@@ -1,8 +1,11 @@
 <%= form_for(@project) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
-  <%= f.hidden_field :user_id, :value => current_user.id %>  
   <%= f.text_field :project_name, :placeholder => "Project name" %>
+  <%#= f.hidden_field :user_id, :value => current_user.id %>
+  
+  <p>Owner (if changed, you will no longer be able to edit this project): 
+	<%= f.select :user_id, User.all.collect {|a| [a.name, a.id]}, {:value => current_user.id}, class: "input-medium" %></p>
 
 	<h4>Observations and Measurements</h4>
 
