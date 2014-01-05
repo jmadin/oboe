@@ -28,7 +28,7 @@
         <% m.each do |i| %>
         <td>
           <div class="alert alert-danger" style="margin:2px;padding:5px;">              
-            <%= Trait.find(Measurement.find(i).trait_id).trait_name %> [<%= i %>]<br/>
+            <%= Trait.find(Measurement.find(i).trait_id).trait_name %><br/>
             (<%= Standard.find(Measurement.find(i).standard_id).standard_name %>)
           </div>
         </td>
@@ -40,7 +40,7 @@
 
     <tbody>
       <%= f.fields_for :rows do |row| %>
-      	<%= render "row_fields", :f => row %>        
+        <%= render "row_fields", :f => row %>        
       <% end %>
     </tbody>
   </table>

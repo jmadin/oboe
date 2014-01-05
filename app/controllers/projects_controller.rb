@@ -4,7 +4,35 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :edit_context, :edit_row]
 
   def show
-    @project = Project.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.csv {
+        data = CSV.generate do |csv|
+          de = []
+          m = []
+          @project.observations.each do |obs|
+            obs.measurements.each do |mea|
+              de.push("#{Trait.find(mea.trait_id).trait_name}_of_#{Entity.find(obs.entity_id).entity_name}_in_#{Standard.find(mea.standard_id).standard_name}")
+              m.push(mea.id)
+            end
+          end
+          csv << de 
+          @project.rows.each do |row|
+            temp = []
+            row.points.sort_by { |a| m.index(a.measurement_id) }.each do |poi|
+              if poi.value.blank?
+                poi.value = nil
+              end
+              temp.push(poi.value)
+            end
+            csv << temp
+          end
+        end
+        send_data data, 
+        :type => 'text/csv; charset=iso-8859-1; header=present', :stream => true,
+        :disposition => "attachment; filename=#{@project.user.email}_#{Date.today.strftime('%Y%m%d')}.csv"
+      }
+    end      
   end
 
   def new

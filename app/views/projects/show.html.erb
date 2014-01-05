@@ -38,11 +38,11 @@
       <% end %>
     <% end %>
     
-    
     <% if @project.rows.count > 0 %>
       <h3>Data</h3>
 
-      <p><em>Note</em> that the measurement IDs are included because there have been some issues lining up the observation and measurement structure with data.</p>
+      <p>Download: <%= link_to "CSV", project_path(format: "csv") %></p>
+
       <table class="table table-condensed">
         <thead>
           <tr>
@@ -67,7 +67,7 @@
                 <% m.push(mea.id) %>
                 <td style="border-top: none;">
                   <div class="alert alert-danger" style="margin:0px;padding:5px;">
-                  <%= Trait.find(Measurement.find(mea.id).trait_id).trait_name %> [<%= mea.id %>]<br/>
+                  <%= Trait.find(Measurement.find(mea.id).trait_id).trait_name %><br/>
                   (<%= Standard.find(Measurement.find(mea.id).standard_id).standard_name %>)
                 </div>
                 </td>
@@ -80,7 +80,7 @@
             <% @project.rows.each do |row| %>
               <tr>
                 <% m.each do |i| %>
-                  <td style="border-top: none;"><%= row.points.where("measurement_id = ?", i).first.value %> <font style="color:lightgrey;">[<%= i %>]</font></td>
+                  <td style="border-top: none;"><%= row.points.where("measurement_id = ?", i).first.value %></td>
                 <% end %>
               </tr>
             <% end %>  
