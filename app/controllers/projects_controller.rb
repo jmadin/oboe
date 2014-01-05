@@ -12,7 +12,7 @@ class ProjectsController < ApplicationController
           m = []
           @project.observations.each do |obs|
             obs.measurements.each do |mea|
-              de.push("#{Trait.find(mea.trait_id).trait_name}_of_#{Entity.find(obs.entity_id).entity_name}_in_#{Standard.find(mea.standard_id).standard_name}")
+              de.push("#{Trait.find(mea.trait_id).trait_name} of #{Entity.find(obs.entity_id).entity_name} in #{Standard.find(mea.standard_id).standard_name}")
               m.push(mea.id)
             end
           end
