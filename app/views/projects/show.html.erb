@@ -76,15 +76,15 @@
           </tr>
         </thead>
         <tbody>
-          <%# if !m.blank? %>
             <% @project.rows.each do |row| %>
               <tr>
                 <% m.each do |i| %>
+                  <% if !row.points.where("measurement_id = ?", i).blank? %>
                   <td style="border-top: none;"><%= row.points.where("measurement_id = ?", i).first.value %></td>
+                  <% end %>  
                 <% end %>
               </tr>
             <% end %>  
-          <%# end %>  
         </tbody>
       </table>
     <% end %>  
